@@ -2,24 +2,6 @@ import app from './express'
 import mongoose from 'mongoose'
 import config from './../config/config'
 
-//comment out before building for production
-import devBundle from './devBundle'
-
-//comment out before building for production
-devBundle.compile(app)
-
-// const CURRENT_WORKING_DIR = process.cwd()
-// app.use('/dist', app.express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
-
-//Listening on PORT
-app.listen(config.port, (err) => {
-  if (err) {
-    console.log(err)
-  }
-  console.info('Server started on port %s.', config.port)
-})
-
-
 //configuring mongoose promise with global promise
 mongoose.Promise = global.Promise
 
@@ -36,3 +18,10 @@ mongoose.connection.on('error', () => {
   throw new Error('unable to connect to database: ${mongoUri}')
 })
 
+//Listening on PORT
+app.listen(config.port, (err) => {
+  if (err) {
+    console.log(err)
+  }
+  console.info('Server started on port %s.', config.port)
+})
